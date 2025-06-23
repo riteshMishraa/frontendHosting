@@ -1,41 +1,64 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useEffect, useState } from "react";
+import { IoIosArrowDropleft, IoIosArrowDropright } from "react-icons/io";
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  let [count, setCount] = useState(0);
+
+  function countPlus() {
+    setCount((prev) => prev + 1);
+  }
+  function countMinus() {
+    setCount((prev) => prev - 1);
+  }
+
+  useEffect(() => {
+    if (count > 20 || count < -20) {
+      setCount(0);
+    }
+  }, [count]);
 
   return (
     <div className="container">
-      <header className="header">
-        <div className="logos">
-          <a href="https://vite.dev" target="_blank" rel="noopener noreferrer">
-            <img src={viteLogo} className="logo" alt="Vite logo" />
-          </a>
-          <a href="https://react.dev" target="_blank" rel="noopener noreferrer">
-            <img src={reactLogo} className="logo react" alt="React logo" />
-          </a>
+      <h1>Counter app by ritesh mishra</h1>
+      <hr />
+
+      <div className="box">
+        <h1>counter app</h1>
+
+        <div className="messageBox">
+          {count === 20 ? (
+            <p>You can only go to max value by 20 . after 20 You will gate 0</p>
+          ) : (
+            <div></div>
+          )}
+
+          {count === -20 ? (
+            <p>
+              You can only go to max value by -20 . after -20 You will gate 0
+            </p>
+          ) : (
+            <div></div>
+          )}
         </div>
-        <h1>Vite + React</h1>
-        <h2>Hello, I am <span className="highlight">Ritesh Mishra</span> 👋</h2>
-        <p className="subtext">Kya ye dikh raha hai?</p>
-      </header>
 
-      <main className="main-content">
-        <button className="btn" onClick={() => setCount((count) => count + 1)}>
-          Count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </main>
-
-      <footer className="footer">
-        <p>Click on the Vite and React logos to learn more</p>
-      </footer>
+        <div className="counterApp">
+          <IoIosArrowDropleft
+            fontSize={32}
+            onClick={countMinus}
+            style={{ cursor: "pointer" }}
+            className="scale"
+          />
+          <div style={{ fontSize: "2rem",color:"lightgreen" }}>{count}</div>
+          <IoIosArrowDropright
+            fontSize={32}
+            onClick={countPlus}
+            style={{ cursor: "pointer" }}
+            className="scale"
+          />
+        </div>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
